@@ -19,32 +19,10 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val itemList = listOf(
-            ListItem.Header("Fruits"),
-            ListItem.Product("Apple"),
-            ListItem.Product("Banana"),
-            ListItem.Product("Orange"),
-
-            ListItem.Header("Vegetables"),
-            ListItem.Product("Carrot"),
-            ListItem.Product("Broccoli"),
-            ListItem.Product("Spinach"),
-
-            ListItem.Header("Dairy"),
-            ListItem.Product("Milk"),
-            ListItem.Product("Cheese"),
-            ListItem.Product("Yogurt"),
-
-            ListItem.Header("Meat"),
-            ListItem.Product("Fish"),
-            ListItem.Product("Chicken"),
-
-
-        )
-
         // Set up RecyclerView
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
+        val adapter = GroceryAdapter(products)
+        recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = GroceryAdapter(itemList)
     }
 }
