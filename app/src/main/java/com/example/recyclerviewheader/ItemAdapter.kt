@@ -6,7 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class GroceryAdapter(private val items: List<ListItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+// Adapter class
+class ItemAdapter(private val items: List<ListItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val VIEW_TYPE_HEADER = 0
@@ -40,7 +42,7 @@ class GroceryAdapter(private val items: List<ListItem>) : RecyclerView.Adapter<R
     override fun getItemCount(): Int = items.size
 
     class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val headerTitle: TextView = view.findViewById(R.id.headerTitle)
+         val headerTitle: TextView = view.findViewById(R.id.headerTitle)
         fun bind(header: ListItem.Header) {
             headerTitle.text = header.title
         }
