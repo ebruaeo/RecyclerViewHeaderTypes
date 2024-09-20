@@ -5,6 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -19,32 +20,40 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val itemList = listOf(
-            ListItem.Header("Fruits"),
-            ListItem.Product("Apple"),
-            ListItem.Product("Banana"),
-            ListItem.Product("Orange"),
-
-            ListItem.Header("Vegetables"),
-            ListItem.Product("Carrot"),
-            ListItem.Product("Broccoli"),
-            ListItem.Product("Spinach"),
-
-            ListItem.Header("Dairy"),
-            ListItem.Product("Milk"),
-            ListItem.Product("Cheese"),
-            ListItem.Product("Yogurt"),
-
-            ListItem.Header("Meat"),
-            ListItem.Product("Fish"),
-            ListItem.Product("Chicken"),
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
 
 
-        )
 
-        // Set up RecyclerView
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = GroceryAdapter(itemList)
+        val fruitsHeader = "Fruits"
+        val fruits = listOf("Apple", "Banana", "Orange", "Pear", "Fig", "Grapes", "Melon")
+
+        val veggiesHeader = "Vegetables"
+        val vegetables = listOf("Carrot", "Broccoli", "Lettuce", "Onion", "Tomato", "Cucumber")
+
+        val dairyHeader = "Dairy"
+        val dairy = listOf("Milk", "Cheese", "Yogurt")
+
+        // Create adapters for each section
+        val fruitsHeaderAdapter = HeaderAdapter(fruitsHeader)
+        val fruitsAdapter = ProductAdapter(fruits)
+
+        val veggiesHeaderAdapter = HeaderAdapter(veggiesHeader)
+        val veggiesAdapter = ProductAdapter(vegetables)
+
+        val dairyHeaderAdapter = HeaderAdapter(dairyHeader)
+        val dairyAdapter = ProductAdapter(dairy)
+
+        // Combine them using ConcatAdapter
+        val concatAdapter = ConcatAdapter(fruitsHeaderAdapter, fruitsAdapter, veggiesHeaderAdapter, veggiesAdapter, dairyHeaderAdapter, dairyAdapter)
+
+        // Set up RecyclerView with StickyLayoutManager
+        val stickyLayoutManager = LinearLayoutManager(this)  // Assuming you're using LinearLayoutManager
+        recyclerView.layoutManager = stickyLayoutManager
+
+        // Add the concat adapter to RecyclerView
+        recyclerView.adapter = concatAdapter
+
+
+
     }
 }
